@@ -1,0 +1,55 @@
+---
+import { site, nav } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-auto bg-navy text-slate-300">
+  <div class="container-px grid gap-10 py-14 md:grid-cols-3">
+    <div>
+      <img src="/images/logo-light.svg" alt={site.shortName} class="h-9 w-auto" />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
+        {site.subtagline}
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Explore</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="text-slate-400 transition-colors hover:text-white">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Contact</h2>
+      <ul class="mt-4 space-y-2 text-sm text-slate-400">
+        <li>
+          <a href={`mailto:${site.email}`} class="transition-colors hover:text-white">{site.email}</a>
+        </li>
+        <li>
+          <a href={site.phoneHref} class="transition-colors hover:text-white">{site.phone}</a>
+        </li>
+        <li>{site.address}</li>
+        <li>
+          <a href={site.linkedin} target="_blank" rel="noopener" class="transition-colors hover:text-white">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-px flex flex-col items-center justify-between gap-2 py-6 text-xs text-slate-500 sm:flex-row">
+      <p>&copy; {year} {site.name}. All rights reserved.</p>
+      <p>{site.domain}</p>
+    </div>
+  </div>
+</footer>

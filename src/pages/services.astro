@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import CTA from "../components/CTA.astro";
+import { services } from "../data/site";
+
+const process = [
+  { step: "01", title: "Discover", body: "We learn your goals, role requirements, and team culture." },
+  { step: "02", title: "Source", body: "We tap our network and targeted search to find qualified talent." },
+  { step: "03", title: "Screen", body: "We vet candidates for skills, experience, and fit before you meet them." },
+  { step: "04", title: "Place", body: "We support offers, onboarding, and follow-up to ensure a lasting match." },
+];
+---
+
+<BaseLayout title="Services" description="Permanent placement, contract staffing, executive search, RPO, and specialized IT and healthcare recruitment.">
+  <!-- Header -->
+  <section class="bg-navy py-16 text-white">
+    <div class="container-px">
+      <p class="text-sm font-semibold uppercase tracking-wider text-accent-light">Services</p>
+      <h1 class="mt-3 text-4xl font-extrabold tracking-tight">Recruitment solutions for every need</h1>
+      <p class="mt-4 max-w-2xl text-lg text-slate-300">
+        From a single hire to a fully managed talent pipeline, we tailor our approach to your goals.
+      </p>
+    </div>
+  </section>
+
+  <!-- Service detail grid -->
+  <section class="container-px py-16">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((s) => (
+          <ServiceCard title={s.title} summary={s.summary} details={s.details} icon={s.icon} />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-slate-50 py-16">
+    <div class="container-px">
+      <div class="mb-10 text-center">
+        <p class="text-sm font-semibold uppercase tracking-wider text-accent-dark">How we work</p>
+        <h2 class="mt-3 text-3xl font-bold text-navy">A clear, proven process</h2>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          process.map((p) => (
+            <div class="rounded-xl border border-slate-200 bg-white p-6">
+              <div class="text-3xl font-extrabold text-accent">{p.step}</div>
+              <h3 class="mt-3 text-lg font-semibold text-navy">{p.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Not sure which service fits?" body="Tell us about your hiring challenge and we'll recommend the right approach." />
+</BaseLayout>

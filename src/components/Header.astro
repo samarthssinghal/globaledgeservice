@@ -1,0 +1,87 @@
+---
+import { site, nav } from "../data/site";
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? current === "/" : current.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <div class="container-px flex h-16 items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2" aria-label={`${site.name} home`}>
+      <img src="/images/logo.svg" alt={site.shortName} class="h-9 w-auto" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class:list={[
+              "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+              isActive(item.href)
+                ? "text-accent-dark"
+                : "text-muted hover:text-navy",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href="/contact"
+        class="ml-2 rounded-md bg-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-light"
+        >Get in touch</a
+      >
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button
+      id="menu-toggle"
+      class="inline-flex items-center justify-center rounded-md p-2 text-navy md:hidden"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-slate-200 bg-white md:hidden"
+    aria-label="Mobile"
+  >
+    <div class="container-px flex flex-col py-3">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class:list={[
+              "rounded-md px-3 py-2.5 text-base font-medium",
+              isActive(item.href) ? "text-accent-dark" : "text-navy",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+</script>

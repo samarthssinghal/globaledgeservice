@@ -1,0 +1,49 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="relative overflow-hidden bg-navy text-white">
+  <!-- decorative gradient -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-60"
+    style="background: radial-gradient(60% 60% at 80% 0%, rgba(31,154,170,0.35) 0%, rgba(11,37,69,0) 60%), radial-gradient(50% 50% at 0% 100%, rgba(31,154,170,0.18) 0%, rgba(11,37,69,0) 60%);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="container-px relative grid items-center gap-12 py-20 md:grid-cols-2 md:py-28">
+    <div>
+      <p class="inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-accent-light">
+        Recruitment &amp; Staffing
+      </p>
+      <h1 class="mt-5 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+        {site.tagline}
+      </h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-slate-300">
+        {site.subtagline}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/contact"
+          class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
+          >Find talent</a
+        >
+        <a
+          href="/careers"
+          class="rounded-md border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >Find work</a
+        >
+      </div>
+    </div>
+
+    <div class="relative">
+      <img
+        src="/images/hero.svg"
+        alt="Recruiters connecting talent with opportunity"
+        class="w-full rounded-xl border border-white/10 shadow-2xl"
+        width="640"
+        height="480"
+      />
+    </div>
+  </div>
+</section>

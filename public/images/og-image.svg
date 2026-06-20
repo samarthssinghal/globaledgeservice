@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Global Edge Enterprise">
+  <!-- PLACEHOLDER social share image (1200x630). Replace with a branded PNG when ready. -->
+  <defs>
+    <linearGradient id="og" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13315c"/>
+      <stop offset="1" stop-color="#0b2545"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#og)"/>
+  <circle cx="980" cy="160" r="220" fill="#1f9aaa" opacity="0.18"/>
+  <text x="90" y="300" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="800" fill="#ffffff">Global <tspan fill="#5ec4cf">Edge</tspan></text>
+  <text x="92" y="360" font-family="Inter, Arial, sans-serif" font-size="30" fill="#94a3b8">Recruitment &amp; Staffing</text>
+  <text x="92" y="430" font-family="Inter, Arial, sans-serif" font-size="34" fill="#e2e8f0">Your edge in finding exceptional talent.</text>
+</svg>

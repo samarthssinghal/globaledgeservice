@@ -1,0 +1,37 @@
+---
+interface Props {
+  title?: string;
+  body?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+const {
+  title = "Ready to build your team?",
+  body = "Let's talk about your hiring goals. Our recruiters respond within one business day.",
+  primaryLabel = "Get in touch",
+  primaryHref = "/contact",
+  secondaryLabel = "Explore services",
+  secondaryHref = "/services",
+} = Astro.props;
+---
+
+<section class="container-px py-16">
+  <div class="overflow-hidden rounded-2xl bg-navy px-6 py-12 text-center text-white sm:px-12">
+    <h2 class="text-2xl font-bold sm:text-3xl">{title}</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-slate-300">{body}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a
+        href={primaryHref}
+        class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
+        >{primaryLabel}</a
+      >
+      <a
+        href={secondaryHref}
+        class="rounded-md border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+        >{secondaryLabel}</a
+      >
+    </div>
+  </div>
+</section>
