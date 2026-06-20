@@ -1,15 +1,14 @@
 ---
 import { site, nav } from "../data/site";
+import { url, isActive } from "../lib/paths";
 
 const current = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === "/" ? current === "/" : current.startsWith(href);
 ---
 
 <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
   <div class="container-px flex h-16 items-center justify-between gap-4">
-    <a href="/" class="flex items-center gap-2" aria-label={`${site.name} home`}>
-      <img src="/images/logo.svg" alt={site.shortName} class="h-9 w-auto" />
+    <a href={url("/")} class="flex items-center gap-2" aria-label={`${site.name} home`}>
+      <img src={url("/images/logo.svg")} alt={site.shortName} class="h-9 w-auto" />
     </a>
 
     <!-- Desktop nav -->
@@ -17,11 +16,11 @@ const isActive = (href: string) =>
       {
         nav.map((item) => (
           <a
-            href={item.href}
-            aria-current={isActive(item.href) ? "page" : undefined}
+            href={url(item.href)}
+            aria-current={isActive(current, item.href) ? "page" : undefined}
             class:list={[
               "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-              isActive(item.href)
+              isActive(current, item.href)
                 ? "text-accent-dark"
                 : "text-muted hover:text-navy",
             ]}
@@ -31,7 +30,7 @@ const isActive = (href: string) =>
         ))
       }
       <a
-        href="/contact"
+        href={url("/contact")}
         class="ml-2 rounded-md bg-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-light"
         >Get in touch</a
       >
@@ -61,11 +60,11 @@ const isActive = (href: string) =>
       {
         nav.map((item) => (
           <a
-            href={item.href}
-            aria-current={isActive(item.href) ? "page" : undefined}
+            href={url(item.href)}
+            aria-current={isActive(current, item.href) ? "page" : undefined}
             class:list={[
               "rounded-md px-3 py-2.5 text-base font-medium",
-              isActive(item.href) ? "text-accent-dark" : "text-navy",
+              isActive(current, item.href) ? "text-accent-dark" : "text-navy",
             ]}
           >
             {item.label}

@@ -1,12 +1,13 @@
 ---
 import { site, nav } from "../data/site";
+import { url } from "../lib/paths";
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-auto bg-navy text-slate-300">
   <div class="container-px grid gap-10 py-14 md:grid-cols-3">
     <div>
-      <img src="/images/logo-light.svg" alt={site.shortName} class="h-9 w-auto" />
+      <img src={url("/images/logo-light.svg")} alt={site.shortName} class="h-9 w-auto" />
       <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
         {site.subtagline}
       </p>
@@ -18,7 +19,7 @@ const year = new Date().getFullYear();
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="text-slate-400 transition-colors hover:text-white">
+              <a href={url(item.href)} class="text-slate-400 transition-colors hover:text-white">
                 {item.label}
               </a>
             </li>

@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import { url } from "../lib/paths";
 ---
 
 <section class="relative overflow-hidden bg-navy text-white">
@@ -24,12 +25,12 @@ import { site } from "../data/site";
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a
-          href="/contact"
+          href={url("/contact")}
           class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
           >Find talent</a
         >
         <a
-          href="/careers"
+          href={url("/careers")}
           class="rounded-md border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
           >Find work</a
         >
@@ -38,7 +39,7 @@ import { site } from "../data/site";
 
     <div class="relative">
       <img
-        src="/images/hero.svg"
+        src={url("/images/hero.svg")}
         alt="Recruiters connecting talent with opportunity"
         class="w-full rounded-xl border border-white/10 shadow-2xl"
         width="640"

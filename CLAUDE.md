@@ -21,17 +21,24 @@ keep the repo public.
 
 ```
 public/                 Static assets served as-is
-  CNAME                 Custom domain (globaledgeservice.com)
   favicon.svg, robots.txt
   images/               Placeholder logo / hero / og-image (swap these out)
 src/
   data/site.ts          ★ Single source of truth: company info, nav, services, form URLs
+  lib/paths.ts          url()/isActive() helpers — prefix every link with the base path
   layouts/BaseLayout    <head>, SEO/OG meta, Header + Footer wrapper
   components/            Header, Footer, Hero, ServiceCard, CTA
   pages/                index, about, services, careers, contact
   styles/global.css     Tailwind import + brand color tokens (@theme)
 .github/workflows/deploy.yml   Build + deploy to GitHub Pages on push to main
 ```
+
+> **Base path:** GitHub Pages serves this repo under the sub-path
+> `/globaledgeservice/` until the custom domain is live. `astro.config.mjs` sets
+> `base` from the `SITE`/`BASE` env vars (defaulting to the project URL), and all
+> internal links/assets go through `src/lib/paths.ts` so they respect it. **Always
+> link with `url("/about")` — never a bare `/about`** — or assets will 404 on the
+> project URL.
 
 ## Local development
 
@@ -65,22 +72,39 @@ Other common changes:
 ## Deployment
 
 Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds the site and deploys it
-to GitHub Pages.
+to GitHub Pages. The repo must be **public** (free Actions/Pages) and Pages **Source** must be
+set to **GitHub Actions** (Settings → Pages).
 
-**One-time setup (done in the GitHub UI / DNS registrar):**
+### Current state — preview on the project URL
 
-1. Push this repo to GitHub and ensure it is **public**.
-2. Repo **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-3. **Custom domain DNS** at your registrar:
+With the default config the site builds for and is live at:
+
+`https://samarthssinghal.github.io/globaledgeservice/`
+
+This works **without any DNS setup**. Just push to `main`.
+
+### Cutover to the custom domain (globaledgeservice.com)
+
+When you're ready to use the real domain:
+
+1. **DNS** at your registrar:
    - Apex `globaledgeservice.com` → GitHub Pages A records:
      `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-     (or an `ALIAS`/`ANAME` to `<username>.github.io` if your registrar supports it).
-   - `www` → CNAME to `<username>.github.io`.
-   - The `public/CNAME` file already pins the domain; confirm it under Settings → Pages.
+     (or `ALIAS`/`ANAME` → `samarthssinghal.github.io` if supported).
+   - `www` → CNAME to `samarthssinghal.github.io`.
+2. **GitHub:** Settings → Pages → set the custom domain to `globaledgeservice.com`
+   (this recreates the `CNAME` file). Wait for the check to pass, then tick **Enforce HTTPS**.
+3. **Build for root:** make the workflow build at the domain root by adding env to the build
+   step in `.github/workflows/deploy.yml`:
+   ```yaml
+   - uses: withastro/action@v4
+     env:
+       SITE: https://globaledgeservice.com
+       BASE: /
+   ```
+   Because all links use `src/lib/paths.ts`, no other code changes are needed.
 4. Create the two Google Forms (Contact, Careers) and paste their viewform links into
    `src/data/site.ts`.
-
-After DNS propagates, enable **Enforce HTTPS** in Settings → Pages.
 
 ## Status / TODO
 

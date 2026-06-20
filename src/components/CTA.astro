@@ -1,4 +1,6 @@
 ---
+import { url } from "../lib/paths";
+
 interface Props {
   title?: string;
   body?: string;
@@ -23,12 +25,12 @@ const {
     <p class="mx-auto mt-3 max-w-2xl text-slate-300">{body}</p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
       <a
-        href={primaryHref}
+        href={url(primaryHref)}
         class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
         >{primaryLabel}</a
       >
       <a
-        href={secondaryHref}
+        href={url(secondaryHref)}
         class="rounded-md border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
         >{secondaryLabel}</a
       >
