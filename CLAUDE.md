@@ -85,7 +85,8 @@ This works **without any DNS setup**. Just push to `main`.
 
 ### Cutover to the custom domain (globaledgeservice.com)
 
-When you're ready to use the real domain:
+The build **auto-detects** the right base path from your GitHub Pages settings (via
+`actions/configure-pages` in the workflow), so switching needs **no code changes**:
 
 1. **DNS** at your registrar:
    - Apex `globaledgeservice.com` → GitHub Pages A records:
@@ -93,18 +94,16 @@ When you're ready to use the real domain:
      (or `ALIAS`/`ANAME` → `samarthssinghal.github.io` if supported).
    - `www` → CNAME to `samarthssinghal.github.io`.
 2. **GitHub:** Settings → Pages → set the custom domain to `globaledgeservice.com`
-   (this recreates the `CNAME` file). Wait for the check to pass, then tick **Enforce HTTPS**.
-3. **Build for root:** make the workflow build at the domain root by adding env to the build
-   step in `.github/workflows/deploy.yml`:
-   ```yaml
-   - uses: withastro/action@v4
-     env:
-       SITE: https://globaledgeservice.com
-       BASE: /
-   ```
-   Because all links use `src/lib/paths.ts`, no other code changes are needed.
+   (GitHub creates the `CNAME` file for you). Wait for the DNS check to pass, then tick
+   **Enforce HTTPS**.
+3. Re-run the deploy (push any commit, or use the Actions "Run workflow" button). The build
+   now targets the domain root automatically; the github.io URL 301-redirects to the domain.
 4. Create the two Google Forms (Contact, Careers) and paste their viewform links into
    `src/data/site.ts`.
+
+> One build serves one URL scheme at a time — you can't have both the `/globaledgeservice/`
+> subpath and the apex domain work directly from the same build (their absolute asset paths
+> differ). That's fine: once the custom domain is set, GitHub redirects the github.io URL to it.
 
 ## Status / TODO
 

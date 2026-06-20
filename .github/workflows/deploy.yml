@@ -24,9 +24,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Configure Pages
+        # Reads your repo's Pages settings and outputs the correct base path:
+        #   - no custom domain  -> origin=https://<user>.github.io, base_path=/globaledgeservice
+        #   - custom domain set -> origin=https://globaledgeservice.com, base_path=/
+        id: pages
+        uses: actions/configure-pages@v5
       - name: Build Astro site
         uses: withastro/action@v4
-        # Defaults: path "." , Node 20, package manager auto-detected.
+        # astro.config.mjs reads SITE/BASE from env, so the build automatically
+        # targets whichever URL GitHub Pages is serving — no code changes at cutover.
+        env:
+          SITE: ${{ steps.pages.outputs.origin }}
+          BASE: ${{ steps.pages.outputs.base_path }}
 
   deploy:
     needs: build
